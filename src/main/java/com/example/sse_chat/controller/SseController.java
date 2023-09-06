@@ -25,8 +25,13 @@ public class SseController {
         return name + " created successfully!";
     }
 
-    @GetMapping("/user-messages")
-    public Flux<ServerSentEvent<List<Message>>> getUserMessages(@RequestParam("name") String name) {
-        return sseService.getUserMessages(name);
+    @PostMapping("/send-msg")
+    public String sendMessage(@RequestBody Message message) {
+        return sseService.sendUserMessage(message);
+    }
+
+    @GetMapping("/user-inbox")
+    public Flux<ServerSentEvent<Message>> getUserInbox(@RequestParam("name") String name) {
+        return sseService.getUserInbox(name);
     }
 }
